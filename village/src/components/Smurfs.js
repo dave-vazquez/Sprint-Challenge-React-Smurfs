@@ -14,7 +14,7 @@ const SmurfsContainer = styled.div`
 
 class Smurfs extends Component {
   render() {
-    console.log(this.props);
+    const { deleteSmurf } = this.props;
     return (
       <SmurfsContainer>
         <h1>Smurf Village</h1>
@@ -27,6 +27,7 @@ class Smurfs extends Component {
                 age={smurf.age}
                 height={smurf.height}
                 key={smurf.id}
+                deleteSmurf={deleteSmurf}
               />
             );
           })}

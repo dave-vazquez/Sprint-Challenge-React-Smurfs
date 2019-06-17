@@ -4,7 +4,8 @@ import axios from "axios";
 class SmurfForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.props.activeSmurf || {
+      id: "",
       name: "",
       age: "",
       height: ""
@@ -16,7 +17,8 @@ class SmurfForm extends Component {
   onSubmitHandler = event => {
     event.preventDefault();
 
-    this.props.addSmurf({
+    this.props.formAction({
+      id: this.state.id,
       name: this.state.name,
       age: this.state.age,
       height: this.state.height
@@ -42,19 +44,19 @@ class SmurfForm extends Component {
           <input
             onChange={this.handleInputChange}
             placeholder="name"
-            value={this.state.name}
+            value={this.state.name || ""}
             name="name"
           />
           <input
             onChange={this.handleInputChange}
             placeholder="age"
-            value={this.state.age}
+            value={this.state.age || ""}
             name="age"
           />
           <input
             onChange={this.handleInputChange}
             placeholder="height"
-            value={this.state.height}
+            value={this.state.height || ""}
             name="height"
           />
           <button type="submit">Add to the village</button>

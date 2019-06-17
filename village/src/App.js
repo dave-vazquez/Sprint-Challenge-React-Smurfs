@@ -6,6 +6,7 @@ import styled from "styled-components";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
+import Smurf from "./components/Smurf";
 import NavBar from "./components/NavBar";
 
 const AppContainer = styled.div`
@@ -61,6 +62,34 @@ class App extends Component {
       });
   };
 
+  editSmurf = smurf => {
+    console.log(smurf);
+    axios
+      .put(`${this.localHost}/smurfs/${smurf.id}`, smurf)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => {
+        console.log("No.");
+      });
+  };
+
+  deleteSmurf = id => {
+    axios
+      .delete(`${this.localHost}/smurfs/${id}`)
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => {
+        console.log("No.");
+      });
+  };
+
   render() {
     const { smurfs, getFailed } = this.state;
     return (
@@ -72,12 +101,43 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={props => <Smurfs {...props} smurfs={smurfs} />}
+            render={props => (
+              <Smurfs
+                {...props}
+                smurfs={smurfs}
+                deleteSmurf={this.deleteSmurf}
+              />
+            )}
           />
         )}
         <Route
+          exact
           path="/smurf-form"
-          render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}
+          render={props => <SmurfForm {...props} formAction={this.addSmurf} />}
+        />
+        <Route
+          path="/smurf-form/:id"
+          render={props => {
+            let activeSmurf = smurfs.find(
+              smurf => `${smurf.id}` === props.match.params.id
+            );
+            return (
+              <SmurfForm
+                {...props}
+                formAction={this.editSmurf}
+                activeSmurf={activeSmurf}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/smurf/:id"
+          render={props => {
+            let activeSmurf = smurfs.find(
+              smurf => `${smurf.id}` === props.match.params.id
+            );
+            return <Smurf {...props} {...activeSmurf} viewOnly />;
+          }}
         />
       </AppContainer>
     );
