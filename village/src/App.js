@@ -23,7 +23,7 @@ class App extends Component {
     super(props);
     this.state = {
       smurfs: [],
-      getFailed: false
+      erroMessage: ""
     };
 
     this.localHost = "http://localhost:3333";
@@ -38,12 +38,12 @@ class App extends Component {
       .then(res => {
         this.setState({
           smurfs: res.data,
-          getFailed: false
+          errorMessage: ""
         });
       })
       .catch(err => {
         this.setState({
-          getFailed: true
+          errorMessage: "Error getting smurfs..."
         });
       });
   };
@@ -58,7 +58,9 @@ class App extends Component {
         });
       })
       .catch(err => {
-        console.log("No.");
+        this.setState({
+          errorMessage: "Error adding smurf..."
+        });
       });
   };
 
@@ -73,7 +75,9 @@ class App extends Component {
         });
       })
       .catch(err => {
-        console.log("No.");
+        this.setState({
+          errorMessage: "Error updating smurfs..."
+        });
       });
   };
 
@@ -91,25 +95,18 @@ class App extends Component {
   };
 
   render() {
-    const { smurfs, getFailed } = this.state;
+    const { smurfs, errorMessage } = this.state;
     return (
       <AppContainer className="App">
         <NavBar />
-        {getFailed ? (
-          <h1>Error getting Smurfs...</h1>
-        ) : (
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <Smurfs
-                {...props}
-                smurfs={smurfs}
-                deleteSmurf={this.deleteSmurf}
-              />
-            )}
-          />
-        )}
+        <h1>{errorMessage}</h1>
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <Smurfs {...props} smurfs={smurfs} deleteSmurf={this.deleteSmurf} />
+          )}
+        />
         <Route
           exact
           path="/smurf-form"

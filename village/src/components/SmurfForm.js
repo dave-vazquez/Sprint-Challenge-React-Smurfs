@@ -17,6 +17,7 @@ class SmurfForm extends Component {
   onSubmitHandler = event => {
     event.preventDefault();
 
+    // formAction is either edit or add
     this.props.formAction({
       id: this.state.id,
       name: this.state.name,
