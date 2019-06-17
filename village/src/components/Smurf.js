@@ -6,6 +6,9 @@ const SmurfWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
 `;
 
 const EditLink = styled(Link)`
