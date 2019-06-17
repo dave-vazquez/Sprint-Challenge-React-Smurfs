@@ -14,7 +14,7 @@ const NavBarContainer = styled.div`
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 500px;
 
   a {
     text-decoration: none;

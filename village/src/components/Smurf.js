@@ -16,7 +16,7 @@ const EditLink = styled(Link)`
   height: 30px;
 
   text-decoration: none;
-  line-height: 20px;
+  line-height: 30px;
 `;
 
 const DeleteButton = styled.button`
@@ -37,7 +37,7 @@ const Smurf = props => {
       <strong>{props.height} tall</strong>
       <p>{props.age} smurf years old</p>
       {!props.viewOnly && (
-        <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <DeleteButton onClick={onClickHandler}>Bye!</DeleteButton>
           <EditLink to={`/smurf-form/${props.id}`}>Edit</EditLink>
         </div>

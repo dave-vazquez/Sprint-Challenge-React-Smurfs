@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import axios from "axios";
+import styled from "styled-components";
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+`;
 
 class SmurfForm extends Component {
   constructor(props) {
@@ -39,9 +49,11 @@ class SmurfForm extends Component {
   };
 
   render() {
+    const { activeSmurf } = this.props;
     return (
       <div className="SmurfForm">
-        <form onSubmit={this.onSubmitHandler}>
+        <h1>{activeSmurf ? "Update Smurf" : "Add Smurf"}</h1>
+        <Form onSubmit={this.onSubmitHandler}>
           <input
             onChange={this.handleInputChange}
             placeholder="name"
@@ -61,7 +73,7 @@ class SmurfForm extends Component {
             name="height"
           />
           <button type="submit">Add to the village</button>
-        </form>
+        </Form>
       </div>
     );
   }

@@ -16,6 +16,8 @@ const AppContainer = styled.div`
 
   width: 100%;
   height: 100vh;
+
+  background-color: #0fa8eb;
 `;
 
 class App extends Component {
